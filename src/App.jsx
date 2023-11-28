@@ -2,45 +2,36 @@ import { useState } from 'react'
 
 function App() {
   const [id, setId] = useState('');
-  //const [result, setResult] = useState('');
+  const [result, setResult] = useState('');
 
- let resultado = "";
-
-  const letters = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"];
+  const check = ()=> {
+    const letters = ["T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"];
   
-  let number = id.substring(1, id.length-1);
-  let letter = id.substring(id.length - 1);
-
-  if (id.substring(0, id.length-8) === "x".toUpperCase()){
-    number = "0" + number;
-  }
-  else if (id.substring(0, id.length-8) === "y".toUpperCase()) {
-    number = "1" + number;
-  }
-  else if (id.substring(0, id.length-8) === "z".toUpperCase()) {
-    number = "2" + number;
-  } else {
-    number = id.substring(0, id.length-1);
-  }
-
-  function check() {
+    let number = id.substring(1, id.length-1);
+    let letter = id.substring(id.length - 1);
+  
+    if (id.substring(0, id.length-8).toUpperCase() === "X"){
+      number = "0" + number;
+    }
+    else if (id.substring(0, id.length-8).toUpperCase() === "Y") {
+      number = "1" + number;
+    }
+    else if (id.substring(0, id.length-8).toUpperCase() === "Z") {
+      number = "2" + number;
+    } else {
+      number = id.substring(0, id.length-1);
+    }
+  
   if (number.length < 8 || number.length > 8 || isNaN(number)) {
-    //setResult("El número de DNI es incorrecto o no es un número");
-    resultado = "El número de DNI es incorrecto o no es un número";
+    setResult("El número de DNI es incorrecto o no es un número");
   } else if (letter == "" || !isNaN(letter)) {
-    //setResult("La letra del DNI no es correcta");
-    resultado = "La letra del DNI no es correcta";
+    setResult("La letra del DNI no es correcta");
   } else if (letters[number % 23] !== letter.toUpperCase()) {
-    //setResult("El DNI no es válido");
-    resultado = "El DNI no es válido";
+    setResult("El DNI no es válido");
   } else {
-    //setResult("Es un DNI válido");
-    resultado = "Es un DNI válido";
+    setResult("Es un DNI válido");
   }
 }
-
-  console.log("id" + id);
-  console.log("number" + number);
 
   return (
     <>
@@ -60,8 +51,8 @@ function App() {
             value={id}
             onChange={(e) => setId(e.target.value)}></input>
       </div>
-      <input type="button" className="btn btn-secondary" value="Validar" id="Check" onClick={check()}></input>
-      <div>{resultado}</div>
+      <input type="button" className="btn btn-secondary" value="Validar" id="Check" onClick={() => check()}></input>
+      <div>{result}</div>
     </div>
     <nav className='navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark'></nav>
     </>
